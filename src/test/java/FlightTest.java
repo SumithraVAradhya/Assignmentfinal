@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class FlightTest  {
 
     @Test
-    public void flights() throws InterruptedException {
+    public void flights() {
      BaseTest price = new BaseTest();
      String flightPrice = price.FlightSearch();
         System.out.println(flightPrice);

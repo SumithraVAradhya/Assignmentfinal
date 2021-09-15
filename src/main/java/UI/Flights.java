@@ -34,9 +34,8 @@ public class Flights extends PageIntilization {
     public void arrival(String city) {
         to.sendKeys(city);
     }
-    public void searchFlights() throws InterruptedException {
+    public void searchFlights() {
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", searchFlights );
-        Thread.sleep(10000);
     }
 
     public String getPrice() {

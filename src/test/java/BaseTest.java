@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     public static WebDriver driver;
-    public String FlightSearch() throws InterruptedException {
+    public String FlightSearch() {
         WebDriverManager.chromedriver().setup();
 
 
