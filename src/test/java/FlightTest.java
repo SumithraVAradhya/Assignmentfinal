@@ -1,15 +1,15 @@
-import UI.Flights;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.Assert;
 import org.testng.annotations.Test;
 
-public class FlightTest  {
+import java.awt.*;
+import java.io.IOException;
+
+public class FlightTest extends BaseTest  {
 
     @Test
-    public void flights() {
-     BaseTest price = new BaseTest();
-     String flightPrice = price.FlightSearch();
-        System.out.println(flightPrice);
+    public void flights() throws IOException, AWTException {
+     String flightPrice = FlightSearch();
+        int  price = Integer.parseInt(flightPrice.replaceAll("[^\\d]",""));
+        Assert.assertTrue(price>5000);
     }
 }

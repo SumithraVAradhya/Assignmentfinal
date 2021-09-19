@@ -1,31 +1,16 @@
-import UI.Hotels;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-public class HotelsTest  {
+import java.awt.*;
+import java.io.IOException;
+
+public class HotelsTest extends BaseTest  {
     public static WebDriver driver;
     @Test
-    public void flights()
-    {
-        WebDriverManager.chromedriver().setup();
-
-
-        // Creating chrome browser instance and launching it
-        driver = new ChromeDriver();
-
-        //URL
-        String BaseURl= "https://www.cleartrip.com/hotels";
-
-        //Initialising to search the flights
-        driver.get(BaseURl);
-
-        Hotels hotel= new Hotels(driver);
-        hotel.where("Mumbai");
-        hotel.checkin("15092021");
-        hotel.checkout("17092021");
-        hotel.searchhotels();
-        driver.close();
+    public void hotels() throws IOException, AWTException {
+        String price =  hotelSearch();
+        int  priceOfHotel = Integer.parseInt(price.replaceAll("[^\\d]",""));
+        Assert.assertTrue(priceOfHotel>3000);
     }
 }

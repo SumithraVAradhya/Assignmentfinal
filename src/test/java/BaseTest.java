@@ -1,32 +1,88 @@
-import UI.Flights;
+import com.uiassignment.main.Flights;
+import com.uiassignment.main.Hotels;
+import com.uiassignment.main.Signin;
+import com.uiassignment.utilities.BrowserSetup;
+import com.uiassignment.utilities.readproperty;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.awt.*;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     public static WebDriver driver;
-    public String FlightSearch() {
+
+    public String FlightSearch() throws AWTException, IOException {
         WebDriverManager.chromedriver().setup();
 
-
-
+        readproperty read_details = new readproperty();
+        Properties Prop = read_details.fetch_property();
         // Creating chrome browser instance and launching it
-        driver = new ChromeDriver();
+        driver = BrowserSetup.getDriver(Prop.getProperty("Browser"));
+        driver.manage().timeouts().implicitlyWait(20L, TimeUnit.SECONDS);
+        //Initialising to search the Flights
+        driver.get(Prop.getProperty("Flights_URL"));
+        driver.manage().window().maximize();
 
-        //URL
-        String BaseURl= "https://www.cleartrip.com/flights";
 
-        //Initialising to search the flights
-        driver.get(BaseURl);
-
-        Flights flight= new Flights(driver);
-        flight.departure("BLR - Bangalore, IN");
-        flight.arrival("DME - Moscow, RU");
+        Flights flight = new Flights(driver);
+        flight.departure(Prop.getProperty("CityDepartureFlight"));
+        flight.arrival(Prop.getProperty("CityArrivalFlight"));
+        flight.selectDate(Prop.getProperty("DateOfFlight"));
         flight.searchFlights();
         String flightPrice = flight.getPrice();
         driver.close();
         return flightPrice;
+    }
+
+
+    public String hotelSearch() throws AWTException, IOException {
+        WebDriverManager.chromedriver().setup();
+        readproperty read_details = new readproperty();
+        Properties Prop = read_details.fetch_property();
+        // Creating chrome browser instance and launching it
+        driver = BrowserSetup.getDriver(Prop.getProperty("Browser"));
+
+        driver.manage().timeouts().implicitlyWait(20L, TimeUnit.SECONDS);
+        //Initialising to search the hotels
+        driver.get(Prop.getProperty("Hotel_URL"));
+        driver.manage().window().maximize();
+
+
+        Hotels hotel = new Hotels(driver);
+        hotel.where(Prop.getProperty("CityHotel"));
+
+        hotel.checkIn(Prop.getProperty("DateOfCheckInHotel"));
+        hotel.checkout(Prop.getProperty("DateOfCheckOutHotel"));
+        hotel.searchHotels();
+        String price = hotel.getPrice();
+        driver.close();
+        return price;
+
+    }
+
+    public void signIn() throws AWTException, IOException {
+        WebDriverManager.chromedriver().setup();
+
+        readproperty read_details = new readproperty();
+        Properties Prop = read_details.fetch_property();
+        // Creating chrome browser instance and launching it
+        driver = BrowserSetup.getDriver(Prop.getProperty("Browser"));
+
+        driver.manage().timeouts().implicitlyWait(20L, TimeUnit.SECONDS);
+        //Initialising to signIn
+        driver.get(Prop.getProperty("Base_URL"));
+        driver.manage().window().maximize();
+
+
+        Signin signin = new Signin(driver);
+        signin.yourTrips();
+        signin.signIn();
+        signin.emailAddress(Prop.getProperty("Email"));
+        signin.password(Prop.getProperty("Password"));
+        signin.signInButton();
+        driver.close();
     }
 }
