@@ -54,16 +54,16 @@ public class BaseTest {
         Hotels hotel = new Hotels(driver);
         hotel.where(Prop.getProperty("CityHotel"));
 
-        hotel.checkIn(Prop.getProperty("DateOfCheckInHotel"));
-        hotel.checkout(Prop.getProperty("DateOfCheckOutHotel"));
-        hotel.searchHotels();
+        hotel.checkIn();
+        hotel.checkout();
+        hotel.searchHotel();
         String price = hotel.getPrice();
         driver.close();
         return price;
 
     }
 
-    public void signIn() throws AWTException, IOException {
+    public String signIn() throws AWTException, IOException {
         WebDriverManager.chromedriver().setup();
 
         readproperty read_details = new readproperty();
@@ -77,12 +77,14 @@ public class BaseTest {
         driver.manage().window().maximize();
 
 
-        Signin signin = new Signin(driver);
-        signin.yourTrips();
-        signin.signIn();
-        signin.emailAddress(Prop.getProperty("Email"));
-        signin.password(Prop.getProperty("Password"));
-        signin.signInButton();
+        Signin signIn = new Signin(driver);
+        signIn.Trips();
+        signIn.logIn();
+        signIn.email(Prop.getProperty("Email"));
+        signIn.enterPassword(Prop.getProperty("Password"));
+        signIn.loginInButton();
+        String userName= signIn.getUserName();
         driver.close();
+        return userName;
     }
 }

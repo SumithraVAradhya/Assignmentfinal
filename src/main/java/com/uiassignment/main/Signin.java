@@ -11,7 +11,7 @@ public class Signin extends PageIntilization {
         this.driver = driver;
     }
     //yourTrips
-    @FindBy (xpath= "//button[@class = 'flex flex-middle flex-between t-all fs-2 focus:bc-secondary-500 bg-transparent bc-neutral-100 c-pointer bn p-2 nmx-2 hover:bg-neutral-0 br-4 c-neutral-400 hover:c-secondary-500']")
+    @FindBy (xpath = "(//div[@class ='p-relative'])[1]")
     WebElement yourTrips;
 
     //SignIn
@@ -27,24 +27,34 @@ public class Signin extends PageIntilization {
     WebElement password;
 
     //SignButton
-    @FindBy(xpath ="//input[@type ='password']")
+    @FindBy(xpath ="//button[@class ='bg-secondary-500 hover:bg-secondary-600 c-white bc-transparent c-pointer w-100p py-2 px-4 h-9 fs-4 fw-600 t-all button bs-solid tp-color td-500 bw-1 br-4 lh-solid box-border']")
     WebElement signInButton;
+   //UserAccount
+    @FindBy(id ="userAccountLink")
+    WebElement userAccount;
 
 
-    public void yourTrips(){
+    public void Trips(){
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", yourTrips );
     }
-    public void signIn(){
+    public void logIn(){
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", signIn);
     }
-    public void emailAddress(String emailAddress) {
+    public void email(String emailAddress) {
         email.sendKeys(emailAddress);
     }
-    public void password(String enterPassword) {
-        password.sendKeys(enterPassword);
+    public void enterPassword(String pass) {
+        password.sendKeys(pass);
     }
-    public void signInButton(){
+    public void loginInButton(){
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", signInButton );
     }
+    public String getUserName()
+    {
+        return userAccount.getText();
+    }
+
+
+
 }
 

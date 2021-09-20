@@ -1,9 +1,13 @@
 package com.uiassignment.main;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -15,50 +19,52 @@ public class Hotels extends PageIntilization {
         this.driver = driver;
     }
     //Where
-          @FindBy (id= "Tags")
-          WebElement where;
+    @FindBy (id= "Tags")
+    WebElement where;
+
+    @FindBy(xpath ="//ul[@id='ui-id-1']/li")
+    WebElement selectCity;
 
 
-    //Check-in
-          @FindBy(xpath = "//input[@title ='Check-in date']")
-          WebElement checkIn;
-    //Date Selector for CheckIn
-         @FindBy(xpath ="(//td[@class= \' weekEnd \'])[4]")
-         WebElement dateSelectionCheckIn;
+    @FindBy(id = "CheckInDate")
+    WebElement checkIn;
+
+    @FindBy(xpath = "(//a[@class='ui-state-default '])[2]")
+    WebElement checkInClick;
+
     //Check-out
-          @FindBy(xpath = "//input[@title ='Check-out date']")
-          WebElement checkOut;
-    //Date Selector for CheckOut
-         @FindBy(xpath = "(//td[@data-handler ='selectDay'])[3]")
-         WebElement dateSelectionCheckOut;
-    //Search Flights
-          @FindBy(id ="SearchHotelsButton")
-          WebElement searchHotels;
-    //Get the price
-          @FindBy(xpath="(//h2[@id=\"perRoomPrDisp\"])[3]")
-          WebElement price;
+    @FindBy(id = "CheckOutDate")
+    WebElement checkOut;
+
+    @FindBy(xpath = "(//a[@class='ui-state-default '])[3]")
+    WebElement checkOutClick;
+    //Search ui.Flights
+    @FindBy(id = "SearchHotelsButton")
+    WebElement searchHotels;
+
+    @FindBy(xpath="(//h2[@id=\"perRoomPrDisp\"])[3]")
+    WebElement price;
 
     public void where(String city) {
         where.sendKeys(city);
-
+        new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOf(selectCity));
+        where.sendKeys(Keys.ENTER);
     }
-    public void Search(String location){
-
+    public void checkIn() {
+       checkIn.click();
+        checkInClick.click();
     }
-    public void checkIn(String date) {
-        checkIn.click();
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", dateSelectionCheckIn);
-    }
-    public void checkout(String date) {
+    public void checkout() {
         checkOut.click();
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", dateSelectionCheckOut);
+        checkOutClick.click();
     }
 
-    public void searchHotels(){
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", searchHotels );
+    public void searchHotel(){
+        searchHotels.click();
     }
     public String getPrice()
     {
+        new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOf(price));
         return price.getText();
     }
 }
