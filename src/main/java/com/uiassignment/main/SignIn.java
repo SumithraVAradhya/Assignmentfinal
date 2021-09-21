@@ -2,16 +2,18 @@ package com.uiassignment.main;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Signin extends PageIntilization {
+public class SignIn extends PageIntilization {
     public static WebDriver driver;
-    public Signin(WebDriver driver)
+    public SignIn(WebDriver driver)
     {
         super(driver);
         this.driver = driver;
     }
     //yourTrips
-    @FindBy (xpath = "(//div[@class ='p-relative'])[1]")
+    @FindBy (xpath = "//button[@class='flex flex-middle flex-between t-all fs-2 focus:bc-secondary-500 bg-transparent bc-neutral-100 c-pointer bn p-2 nmx-2 hover:bg-neutral-0 br-4 c-neutral-400 hover:c-secondary-500']")
     WebElement yourTrips;
 
     //SignIn
@@ -30,11 +32,12 @@ public class Signin extends PageIntilization {
     @FindBy(xpath ="//button[@class ='bg-secondary-500 hover:bg-secondary-600 c-white bc-transparent c-pointer w-100p py-2 px-4 h-9 fs-4 fw-600 t-all button bs-solid tp-color td-500 bw-1 br-4 lh-solid box-border']")
     WebElement signInButton;
    //UserAccount
-    @FindBy(id ="userAccountLink")
+    @FindBy(xpath ="//div[@class ='py-2 px-2 h-8 flex flex-middle bg-error-600 c-white fs-2 br-4 ']")
     WebElement userAccount;
 
 
     public void Trips(){
+        new WebDriverWait(driver,5).until(ExpectedConditions.visibilityOf(yourTrips));
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", yourTrips );
     }
     public void logIn(){
@@ -53,8 +56,5 @@ public class Signin extends PageIntilization {
     {
         return userAccount.getText();
     }
-
-
-
 }
 

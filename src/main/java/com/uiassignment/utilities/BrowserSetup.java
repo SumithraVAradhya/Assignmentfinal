@@ -12,10 +12,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BrowserSetup {
     public static WebDriver driver;
-
-    public BrowserSetup() {
-    }
-
     public static WebDriver getDriver(String Browser) {
         if (Browser.equals("Chrome")) {
             WebDriverManager.chromedriver().setup();

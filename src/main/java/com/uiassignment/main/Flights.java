@@ -48,7 +48,7 @@ public class Flights extends PageIntilization {
         to.sendKeys(city);
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", cityList.get(3));
     }
-    public void selectDate(String date1) {
+    public void selectDate() {
         date.click();
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", dateSelector );
     }

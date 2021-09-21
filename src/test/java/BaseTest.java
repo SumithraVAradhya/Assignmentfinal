@@ -14,11 +14,10 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
     public static WebDriver driver;
 
-    public String FlightSearch() throws AWTException, IOException {
-        WebDriverManager.chromedriver().setup();
+    public String FlightSearch(Properties Prop) throws AWTException, IOException {
 
-        readproperty read_details = new readproperty();
-        Properties Prop = read_details.fetch_property();
+
+
         // Creating chrome browser instance and launching it
         driver = BrowserSetup.getDriver(Prop.getProperty("Browser"));
         driver.manage().timeouts().implicitlyWait(20L, TimeUnit.SECONDS);
@@ -30,7 +29,7 @@ public class BaseTest {
         Flights flight = new Flights(driver);
         flight.departure(Prop.getProperty("CityDepartureFlight"));
         flight.arrival(Prop.getProperty("CityArrivalFlight"));
-        flight.selectDate(Prop.getProperty("DateOfFlight"));
+        flight.selectDate();
         flight.searchFlights();
         String flightPrice = flight.getPrice();
         driver.close();
@@ -38,10 +37,9 @@ public class BaseTest {
     }
 
 
-    public String hotelSearch() throws AWTException, IOException {
-        WebDriverManager.chromedriver().setup();
-        readproperty read_details = new readproperty();
-        Properties Prop = read_details.fetch_property();
+    public String hotelSearch(Properties Prop) throws AWTException, IOException {
+
+
         // Creating chrome browser instance and launching it
         driver = BrowserSetup.getDriver(Prop.getProperty("Browser"));
 
@@ -63,11 +61,9 @@ public class BaseTest {
 
     }
 
-    public String signIn() throws AWTException, IOException {
-        WebDriverManager.chromedriver().setup();
+    public String signIn(Properties Prop) throws AWTException, IOException {
 
-        readproperty read_details = new readproperty();
-        Properties Prop = read_details.fetch_property();
+
         // Creating chrome browser instance and launching it
         driver = BrowserSetup.getDriver(Prop.getProperty("Browser"));
 
