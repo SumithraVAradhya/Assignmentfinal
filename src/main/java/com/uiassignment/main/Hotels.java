@@ -22,7 +22,7 @@ public class Hotels extends PageIntilization {
     @FindBy (id= "Tags")
     WebElement where;
 
-    @FindBy(xpath ="//ul[@id='ui-id-1']/li")
+    @FindBy(xpath ="//ul[@id='ui-id-1']/li[2]/a") //"//ul[@id='ui-id-1']/li"
     WebElement selectCity;
 
 

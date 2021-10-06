@@ -1,9 +1,7 @@
 import com.uiassignment.main.Flights;
 import com.uiassignment.main.Hotels;
-import com.uiassignment.main.Signin;
+import com.uiassignment.main.SignIn;
 import com.uiassignment.utilities.BrowserSetup;
-import com.uiassignment.utilities.readproperty;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 
 import java.awt.*;
@@ -73,7 +71,7 @@ public class BaseTest {
         driver.manage().window().maximize();
 
 
-        Signin signIn = new Signin(driver);
+        SignIn signIn = new SignIn(driver);
         signIn.Trips();
         signIn.logIn();
         signIn.email(Prop.getProperty("Email"));

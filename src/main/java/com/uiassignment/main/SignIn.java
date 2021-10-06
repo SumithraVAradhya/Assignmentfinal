@@ -56,5 +56,8 @@ public class SignIn extends PageIntilization {
     {
         return userAccount.getText();
     }
+
+
 }
+
 
